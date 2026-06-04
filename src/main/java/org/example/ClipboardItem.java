@@ -5,7 +5,9 @@ public class ClipboardItem {
     private String text;
     private boolean pinned;
 
-    public ClipboardItem(){
+    public ClipboardItem(String text){
+        this.text = text;
+        this.pinned = false;
 
     }
 
@@ -13,7 +15,7 @@ public class ClipboardItem {
         return text;
     }
 
-    public boolean getPinned() {
+    public boolean isPinned() {
         return pinned;
     }
 }
