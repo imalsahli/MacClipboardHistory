@@ -12,12 +12,16 @@ import javafx.animation.KeyFrame;
 import javafx.util.Duration;
 import javafx.scene.control.Button;
 import javafx.geometry.Insets;
-
+import java.awt.*;
+import java.awt.event.ActionListener;
+import javafx.application.Platform;
 
 public class ClipboardApp extends Application {
 
     @Override
     public void start(Stage stage) {
+
+
 
 
         // This list will show all copied texts
@@ -123,6 +127,7 @@ public class ClipboardApp extends Application {
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
+        setupMenuBar(stage);
     }
 
     private void refreshListView(ListView<String> listView, ClipboardHistory history) {
@@ -147,5 +152,49 @@ public class ClipboardApp extends Application {
 
     public static void main(String[] args) {
         launch(args);
+    }
+    private void setupMenuBar(Stage stage) {
+        if (!SystemTray.isSupported()) {
+            return;
+        }
+
+        Platform.setImplicitExit(false);
+
+        SystemTray tray = SystemTray.getSystemTray();
+
+        PopupMenu popup = new PopupMenu();
+
+        MenuItem showItem = new MenuItem("Show");
+        MenuItem exitItem = new MenuItem("Exit");
+
+        popup.add(showItem);
+        popup.add(exitItem);
+
+        Image image = Toolkit.getDefaultToolkit().createImage("Clipboard-History.png");
+
+        TrayIcon trayIcon = new TrayIcon(image, "Mac Clipboard History", popup);
+        trayIcon.setImageAutoSize(true);
+
+        showItem.addActionListener(e -> Platform.runLater(() -> {
+            stage.show();
+            stage.toFront();
+        }));
+
+        exitItem.addActionListener(e -> {
+            tray.remove(trayIcon);
+            Platform.exit();
+            System.exit(0);
+        });
+
+        try {
+            tray.add(trayIcon);
+        } catch (AWTException e) {
+            e.printStackTrace();
+        }
+
+        stage.setOnCloseRequest(event -> {
+            event.consume();
+            stage.hide();
+        });
     }
 }
