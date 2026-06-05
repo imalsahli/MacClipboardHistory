@@ -35,4 +35,8 @@ build/
 .vscode/
 
 ### Mac OS ###
+.DS_Storeclipboard-history.txt
+target/
+.idea/
+*.iml
 .DS_Store

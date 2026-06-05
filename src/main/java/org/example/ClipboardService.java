@@ -1,8 +1,10 @@
 package org.example;
+
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
+import java.awt.datatransfer.StringSelection;
 
 
 public class ClipboardService {
@@ -12,8 +14,8 @@ public class ClipboardService {
     3. Check if content is text
     4. Return text
     5. If not text, return empty string
-    */ 
-   public String getCurrentText() {
+    */
+    public String getCurrentText() {
         try {
             // Get the system clipboard
             Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
@@ -30,5 +32,15 @@ public class ClipboardService {
             e.printStackTrace();
         }
         return "";
+    }
+
+    public void setCurrentText(String text) {
+
+        // Wrap the text so it can be stored in the system clipboard
+        StringSelection selection = new StringSelection(text);
+        // Get the macOS clipboard
+        Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+        // Update clipboard with the provided text
+        clipboard.setContents(selection, null);
     }
 }
