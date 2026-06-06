@@ -12,17 +12,16 @@ import javafx.animation.KeyFrame;
 import javafx.util.Duration;
 import javafx.scene.control.Button;
 import javafx.geometry.Insets;
+
 import java.awt.*;
 import java.awt.event.ActionListener;
+
 import javafx.application.Platform;
 
 public class ClipboardApp extends Application {
 
     @Override
     public void start(Stage stage) {
-
-
-
 
         // This list will show all copied texts
         ListView<String> listView = new ListView<>();
@@ -128,6 +127,8 @@ public class ClipboardApp extends Application {
         stage.setResizable(false);
         stage.show();
         setupMenuBar(stage);
+        GlobalShortcutService shortcutService = new GlobalShortcutService(stage);
+        shortcutService.start();
     }
 
     private void refreshListView(ListView<String> listView, ClipboardHistory history) {
@@ -153,6 +154,7 @@ public class ClipboardApp extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
     private void setupMenuBar(Stage stage) {
         if (!SystemTray.isSupported()) {
             return;
