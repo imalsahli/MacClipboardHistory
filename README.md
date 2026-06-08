@@ -35,4 +35,5 @@ The packaged application will be available in the Releases section.
 
 | Version | Date       | Changes         |
 | ------- | ---------- | --------------- |
-| v1.0.0  | 2026-06-05 | Initial release |
+| v1.0.0  | 2026-06-05 | [Download for macOS](https://github.com/imalsahli/MacClipboardHistory/releases/download/v1.0.0/MacClipboardHistory-1.0.dmg) |
+
